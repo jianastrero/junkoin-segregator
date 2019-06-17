@@ -44,27 +44,32 @@ def train_dataset():
     images = []
     labels = []
     labels_dic = {}
-    people = [person for person in os.listdir("train/")]
+    paths = []
+    train_directory = os.path.join(os.path.dirname(__file__), 'train') + '/'
+    people = [person for person in os.listdir(train_directory)]
     for i, person in enumerate(people):
         labels_dic[i] = person
-        for image in os.listdir("train/" + person):
-            images.append(cv2.imread("train/" + person + '/' + image, 0))
+        for image in os.listdir(train_directory + person):
+            path = train_directory + person + '/' + image
+            paths.append(path)
+            images.append(cv2.imread(path, 0))
             labels.append(person)
 
-    return images, np.array(labels), labels_dic
+    return images, np.array(labels), labels_dic, paths
 
 
 def test_dataset():
     pass
 
 
-def normalize_dataset(images):
+def normalize_dataset(images, paths):
     count = 0
-    for image in images:
-        detector = FaceDetector("../haarcascade_frontalface_default.xml")
+    xml_path = os.path.join(os.path.dirname(__file__), '../haarcascade_frontalface_default.xml')
+    for image, path in zip(images, paths):
+        detector = FaceDetector(xml_path)
         faces_coord = detector.detect(image, True)
         faces = normalize_faces(image, faces_coord)
         for i, face in enumerate(faces):
-            cv2.imwrite('%s.jpeg' % (count), faces[i])
+            cv2.imwrite('normalized_' + path, faces[i])
             count += 1
     return count
