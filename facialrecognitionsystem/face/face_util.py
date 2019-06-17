@@ -23,6 +23,7 @@
 
 import cv2
 
+
 def cut_faces(image, faces_coord):
     faces = []
 
