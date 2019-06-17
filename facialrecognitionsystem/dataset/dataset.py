@@ -61,7 +61,7 @@ def test_dataset():
 def normalize_dataset(images):
     count = 0
     for image in images:
-        detector = FaceDetector("haarcascade_frontalface_default.xml")
+        detector = FaceDetector("../haarcascade_frontalface_default.xml")
         faces_coord = detector.detect(image, True)
         faces = normalize_faces(image, faces_coord)
         for i, face in enumerate(faces):
