@@ -36,6 +36,9 @@ import cv2
 import os
 import numpy as np
 
+from facialrecognitionsystem.face.FaceDetector import FaceDetector
+from facialrecognitionsystem.face.face_util import normalize_faces
+
 
 def train_dataset():
     images = []
@@ -53,3 +56,15 @@ def train_dataset():
 
 def test_dataset():
     pass
+
+
+def normalize_dataset(images):
+    count = 0
+    for image in images:
+        detector = FaceDetector("haarcascade_frontalface_default.xml")
+        faces_coord = detector.detect(image, True)
+        faces = normalize_faces(image, faces_coord)
+        for i, face in enumerate(faces):
+            cv2.imwrite('%s.jpeg' % (count), faces[i])
+            count += 1
+    return count
