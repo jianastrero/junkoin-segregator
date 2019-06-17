@@ -59,7 +59,16 @@ def train_dataset():
 
 
 def test_dataset():
-    pass
+    images = []
+    paths = []
+    test_directory = os.path.join(os.path.dirname(__file__), 'test') + '/'
+    for image in os.listdir(test_directory):
+        path = test_directory + image
+        paths.append(path)
+        img = cv2.imread(path, 0)
+        images.append(img)
+
+    return images, paths
 
 
 def normalize_dataset(images, paths):
@@ -69,7 +78,8 @@ def normalize_dataset(images, paths):
         detector = FaceDetector(xml_path)
         faces_coord = detector.detect(image, True)
         faces = normalize_faces(image, faces_coord)
+        print("found {} faces on {}".format(len(faces), path))
         for i, face in enumerate(faces):
-            cv2.imwrite('normalized_' + path, faces[i])
+            cv2.imwrite(path, faces[i])
             count += 1
     return count
