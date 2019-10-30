@@ -1,2 +1,5 @@
 venv
 .idea
+facialrecognitionsystem/dataset
+facialrecognitionsystem/tf_files
+facialrecognitionsystem/web_model
