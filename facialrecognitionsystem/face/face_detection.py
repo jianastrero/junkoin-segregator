@@ -27,9 +27,12 @@ from __future__ import print_function
 import cv2
 import argparse
 import threading
+import time
 
 import numpy as np
 import tensorflow as tf
+import qrcode as qr
+from PIL import Image
 
 
 def main():
@@ -152,8 +155,30 @@ def process_image(img):
             if identity == "":
                 identity = labels[i]
             print(labels[i], results[i])
-        is_processing = False
 
         print("-------------identified as: " + identity)
+
+        amount = "0"
+
+        if identity == "trash":
+            amount = "1"
+        elif identity == "paper":
+            amount = "5"
+        elif identity == "plastic":
+            amount = "10"
+        elif identity == "metal":
+            amount = "15"
+
+        img = qr.make(amount)
+
+        print(type(img))
+        print(img.size)
+
+        img.save("../qr.png")
+
+        image = Image.open("../qr.png")
+        image.show()
+        time.sleep(10)
+        is_processing = False
 
 main()
