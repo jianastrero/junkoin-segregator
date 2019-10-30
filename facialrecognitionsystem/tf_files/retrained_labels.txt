@@ -1,4 +1,0 @@
-metal
-paper
-plastic
-trash
