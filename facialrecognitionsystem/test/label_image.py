@@ -73,9 +73,9 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
-  file_name = "facialrecognitionsystem/dataset/test/jian.jpg"
-  model_file = "facialrecognitionsystem/tf_files/retrained_graph.pb"
-  label_file = "facialrecognitionsystem/tf_files/retrained_labels.txt"
+  file_name = "dataset/test/jian.jpg"
+  model_file = "tf_files/retrained_graph.pb"
+  label_file = "tf_files/retrained_labels.txt"
   input_height = 299
   input_width = 299
   input_mean = 0
